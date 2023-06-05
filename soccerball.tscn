@@ -25,7 +25,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3lwll"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_n78op"]
 radius = 1.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
@@ -36,4 +36,4 @@ sprite_frames = SubResource("SpriteFrames_duqsf")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_3lwll")
+shape = SubResource("CircleShape2D_n78op")

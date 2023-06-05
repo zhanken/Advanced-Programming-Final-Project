@@ -12,7 +12,6 @@ func _ready():
 
 
 func _physics_process(delta):
-	#print(self.position)
 	if true:
 		var dir = Vector2.ZERO
 		if Input.is_action_pressed("up"):

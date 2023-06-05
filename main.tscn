@@ -1688,24 +1688,25 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(196616, 327682, 3, 196617, 327682, 3, 196618, 327682, 3, 196619, 327682, 3, 196620, 393218, 3, 196615, 262146, 3, 1376263, 262146, 4, 1376264, 327682, 4, 1376265, 327682, 4, 1376266, 327682, 4, 1376267, 327682, 4, 1376268, 393218, 4)
 
 [node name="Player" parent="." instance=ExtResource("2_b1253")]
-position = Vector2(160, 206)
+position = Vector2(161, 135)
+
+[node name="tm1" parent="." instance=ExtResource("6_u3f4d")]
+position = Vector2(212, 82)
+
+[node name="tm2" parent="." instance=ExtResource("6_u3f4d")]
+position = Vector2(101, 83)
+
+[node name="tm3" parent="." instance=ExtResource("6_u3f4d")]
+position = Vector2(100, 125)
+
+[node name="tm4" parent="." instance=ExtResource("6_u3f4d")]
+position = Vector2(163, 172)
+
+[node name="tm5" parent="." instance=ExtResource("6_u3f4d")]
+position = Vector2(228, 129)
 
 [node name="soccerball" parent="." instance=ExtResource("3_6b2ps")]
-position = Vector2(163, 207)
+position = Vector2(165, 135)
 
-[node name="team1" parent="." instance=ExtResource("6_u3f4d")]
-position = Vector2(159, 307)
-script = null
-
-[node name="team2" parent="." instance=ExtResource("6_u3f4d")]
-position = Vector2(71, 214)
-script = null
-
-[node name="CharacterBody2D" parent="." instance=ExtResource("6_u3f4d")]
-position = Vector2(212, 198)
-
-[connection signal="attached" from="." to="soccerball" method="_on_node_2d_attached"]
 [connection signal="passing" from="Player" to="." method="_on_player_passing"]
-[connection signal="passing" from="Player" to="soccerball" method="_on_player_passing"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
-[connection signal="shoot" from="Player" to="soccerball" method="_on_player_shoot"]
