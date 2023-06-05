@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkt7x1pbx0r2c"]
+
+[ext_resource type="Texture2D" uid="uid://d0phvuqj3y0ya" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Ball_2x2_Sheet.png" id="1_6nhjk"]
+[ext_resource type="Script" path="res://soccerball.gd" id="1_d0ry1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hji1k"]
+atlas = ExtResource("1_6nhjk")
+region = Rect2(0, 0, 2, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1da7s"]
+atlas = ExtResource("1_6nhjk")
+region = Rect2(2, 0, 2, 2)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_duqsf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hji1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1da7s")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3lwll"]
+radius = 1.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_d0ry1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_duqsf")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3lwll")
