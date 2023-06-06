@@ -11,7 +11,7 @@ func _process(delta):
 	pass
 
 
-func _on_node_2d_scored():
+func _on_pensbutton_pressed():
 	visible = true
 
 

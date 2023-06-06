@@ -11,9 +11,5 @@ func _process(delta):
 	pass
 
 
-func _on_node_2d_scored():
+func _on_startgame_pressed():
 	visible = true
-
-
-func _on_button_pressed():
-	visible = false

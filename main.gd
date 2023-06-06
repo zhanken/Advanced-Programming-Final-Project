@@ -36,7 +36,7 @@ func attachBall() -> void:
 
 func find_closest_teammate():
 	var closest_teammate = null
-	var closest_distance = INF# Set initial distance to a large value
+	var closest_distance = INF
 	var teammates = [get_node("tm1"),get_node("tm2"),get_node("tm3"),get_node("tm4"),get_node("tm5")]
 	for teammate in teammates:
 		var playerpos = get_node("Player").position
@@ -62,7 +62,7 @@ func _on_player_passing():
 		currentVelocity = velocity
 	attachedNow = false
 		
-var shootSpeed = 70
+var shootSpeed = 200
 func _on_player_shoot():
 	var dToGoal
 	soccerBall.set_deferred("collision_layer", 1)

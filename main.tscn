@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dvq2x54q1gscy"]
+[gd_scene load_steps=28 format=3 uid="uid://dvq2x54q1gscy"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_beaic"]
 [ext_resource type="Texture2D" uid="uid://ut3f5mf2pcaf" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Ready_Made_Pitch_And_Stadium.png" id="1_gsyce"]
@@ -7,13 +7,21 @@
 [ext_resource type="Texture2D" uid="uid://b8542rr60ovy6" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Modular_Pitch_and_Stadium_8x8_Tileset.png" id="3_g1uvf"]
 [ext_resource type="PackedScene" uid="uid://coax3eodf6rts" path="res://blueNPC.tscn" id="6_u3f4d"]
 [ext_resource type="PackedScene" uid="uid://daupe30wll8ct" path="res://redNPC.tscn" id="7_7lndb"]
+[ext_resource type="Texture2D" uid="uid://bmodbc3fwdmvr" path="res://sonny.jpeg" id="8_12kwy"]
 [ext_resource type="Script" path="res://blueteamlabel.gd" id="8_y34g4"]
 [ext_resource type="Script" path="res://game1end.gd" id="9_8rh5l"]
+[ext_resource type="Texture2D" uid="uid://h3wtj8jau8h6" path="res://mbappe.jpg" id="9_f0c0w"]
+[ext_resource type="Script" path="res://scoreboard.gd" id="10_4mu1m"]
+[ext_resource type="Texture2D" uid="uid://0ecaccaea4pm" path="res://modric.jpeg" id="10_stthn"]
 [ext_resource type="Texture2D" uid="uid://bn262pfxnb8vd" path="res://ronaldosiuu.jpg" id="10_toayk"]
 [ext_resource type="Script" path="res://gamestart.gd" id="11_dxsh8"]
+[ext_resource type="Texture2D" uid="uid://bojtvlehgymp" path="res://vinicius.jpg" id="11_t8w5k"]
 [ext_resource type="Texture2D" uid="uid://bogk84pniiwji" path="res://debruyne.png" id="11_wrrwd"]
+[ext_resource type="Texture2D" uid="uid://bcme0akku5vev" path="res://haaland.jpg" id="12_0n3my"]
 [ext_resource type="Script" path="res://helpscreen.gd" id="13_x4e08"]
 [ext_resource type="Texture2D" uid="uid://c68vthgl6yhys" path="res://rashford.jpg" id="14_147yd"]
+[ext_resource type="Script" path="res://penshelp.gd" id="15_yfec1"]
+[ext_resource type="Texture2D" uid="uid://c2n3kjtv7aws8" path="res://terry.png" id="16_5giyu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_54w7l"]
 
@@ -1721,17 +1729,61 @@ position = Vector2(163, 172)
 [node name="soccerball" parent="." instance=ExtResource("3_6b2ps")]
 position = Vector2(165, 135)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="celebrationimage" type="CanvasLayer" parent="."]
+visible = false
 
-[node name="blueteam" type="Label" parent="CanvasLayer"]
+[node name="son" type="TextureRect" parent="celebrationimage"]
+visible = false
+offset_left = -208.0
+offset_top = -82.0
+offset_right = 1392.0
+offset_bottom = 818.0
+texture = ExtResource("8_12kwy")
+
+[node name="mbappe" type="TextureRect" parent="celebrationimage"]
+visible = false
+offset_left = -748.0
+offset_top = -68.0
+offset_right = 2252.0
+offset_bottom = 1620.0
+texture = ExtResource("9_f0c0w")
+
+[node name="modric" type="TextureRect" parent="celebrationimage"]
+visible = false
+offset_left = -177.0
+offset_top = -57.0
+offset_right = 1823.0
+offset_bottom = 1251.0
+texture = ExtResource("10_stthn")
+
+[node name="vini" type="TextureRect" parent="celebrationimage"]
+visible = false
+offset_left = -2.0
+offset_top = -13.0
+offset_right = 1198.0
+offset_bottom = 662.0
+texture = ExtResource("11_t8w5k")
+
+[node name="haaland" type="TextureRect" parent="celebrationimage"]
+visible = false
+offset_left = -36.0
+offset_top = -50.0
+offset_right = 1260.0
+offset_bottom = 679.0
+texture = ExtResource("12_0n3my")
+
+[node name="scoreboard" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("10_4mu1m")
+
+[node name="blueteam" type="Label" parent="scoreboard"]
 offset_left = 1032.0
 offset_top = 576.0
 offset_right = 1128.0
 offset_bottom = 602.0
-text = "blue team: 0"
 script = ExtResource("8_y34g4")
 
-[node name="Label2" type="Label" parent="CanvasLayer"]
+[node name="Label2" type="Label" parent="scoreboard"]
 offset_left = 1036.0
 offset_top = 605.0
 offset_right = 1132.0
@@ -1741,6 +1793,11 @@ text = "red team: 1"
 [node name="game1end" type="CanvasLayer" parent="."]
 visible = false
 script = ExtResource("9_8rh5l")
+
+[node name="ronaldo" type="TextureRect" parent="game1end"]
+offset_right = 1183.0
+offset_bottom = 673.0
+texture = ExtResource("10_toayk")
 
 [node name="Label" type="Label" parent="game1end"]
 z_index = 3
@@ -1756,29 +1813,18 @@ text = "good job tying the game!
  time for penalty kicks to 
 decide the winner"
 
-[node name="TextureRect" type="TextureRect" parent="game1end"]
-offset_right = 1183.0
-offset_bottom = 673.0
-texture = ExtResource("10_toayk")
-
-[node name="Button" type="Button" parent="game1end"]
+[node name="pensbutton" type="Button" parent="game1end"]
 offset_left = 838.0
 offset_top = 178.0
 offset_right = 960.0
 offset_bottom = 209.0
 text = "go to penalties"
 
-[node name="Button2" type="Button" parent="game1end"]
-offset_left = 782.0
-offset_top = 262.0
-offset_right = 1132.0
-offset_bottom = 293.0
-text = "watch my team celebrate instead of this guy"
-
 [node name="gamestart" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("11_dxsh8")
 
-[node name="TextureRect" type="TextureRect" parent="gamestart"]
+[node name="debruyne" type="TextureRect" parent="gamestart"]
 offset_left = -25.0
 offset_top = -13.0
 offset_right = 1215.0
@@ -1793,12 +1839,12 @@ offset_bottom = 398.0
 theme_override_font_sizes/font_size = 29
 text = "start game"
 
-[node name="LineEdit" type="LineEdit" parent="gamestart"]
+[node name="teamname" type="LineEdit" parent="gamestart"]
 offset_left = 854.0
 offset_top = 247.0
 offset_right = 1128.0
 offset_bottom = 278.0
-placeholder_text = "enter team name (then hit enter)"
+placeholder_text = "enter team name"
 
 [node name="Label" type="Label" parent="gamestart"]
 offset_left = 499.0
@@ -1820,7 +1866,7 @@ text = "how the game works"
 visible = false
 script = ExtResource("13_x4e08")
 
-[node name="TextureRect" type="TextureRect" parent="helpscreen"]
+[node name="rashford" type="TextureRect" parent="helpscreen"]
 offset_right = 1163.0
 offset_bottom = 649.0
 texture = ExtResource("14_147yd")
@@ -1846,10 +1892,37 @@ theme_override_font_sizes/font_size = 30
 text = "Got it"
 
 [node name="penshelp" type="CanvasLayer" parent="."]
+script = ExtResource("15_yfec1")
 
-[node name="TextureRect" type="TextureRect" parent="penshelp"]
+[node name="terry" type="TextureRect" parent="penshelp"]
+offset_right = 1153.0
+offset_bottom = 651.0
+texture = ExtResource("16_5giyu")
+
+[node name="Label" type="Label" parent="penshelp"]
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 23.0
+text = "Good job! It's time for the penalty shootout.
+
+As you stand waiting to take the penalty, press the direction buttons to guide your shot.
+You don't get to see where the shot will go, so don't overcorrect!
+
+When you think the aim is good, press and hold the shot meter. If you overcharge the shot, you have a higher chance of missing!
+
+
+
+
+Higher shot power and shooting close to the posts will decrease the chances of the keeper saving the penalty!
+
+Best out of five shots wins!"
+
+[node name="Button" type="Button" parent="penshelp"]
+offset_left = 384.0
+offset_top = 390.0
+offset_right = 672.0
+offset_bottom = 500.0
+theme_override_font_sizes/font_size = 50
+text = "I AM READY"
 
 [connection signal="scored" from="." to="tm1" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="tm2" method="_on_node_2d_scored"]
@@ -1857,12 +1930,18 @@ offset_bottom = 40.0
 [connection signal="scored" from="." to="tm5" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="tm4" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="soccerball" method="_on_node_2d_scored"]
-[connection signal="scored" from="." to="CanvasLayer/blueteam" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="scoreboard/blueteam" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="game1end" method="_on_node_2d_scored"]
 [connection signal="passing" from="Player" to="." method="_on_player_passing"]
 [connection signal="passing" from="Player" to="soccerball" method="_on_player_passing"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="shoot" from="Player" to="soccerball" method="_on_player_shoot"]
+[connection signal="pressed" from="game1end/pensbutton" to="game1end" method="_on_button_pressed"]
+[connection signal="pressed" from="game1end/pensbutton" to="penshelp" method="_on_pensbutton_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="scoreboard" method="_on_startgame_pressed"]
 [connection signal="pressed" from="gamestart/startgame" to="gamestart" method="_on_startgame_pressed"]
+[connection signal="text_changed" from="gamestart/teamname" to="scoreboard/blueteam" method="_on_teamname_text_changed"]
+[connection signal="text_submitted" from="gamestart/teamname" to="scoreboard/blueteam" method="_on_teamname_text_submitted"]
 [connection signal="pressed" from="gamestart/gotohelp" to="helpscreen" method="_on_gotohelp_pressed"]
 [connection signal="pressed" from="helpscreen/leavehelp" to="helpscreen" method="_on_leavehelp_pressed"]
+[connection signal="pressed" from="penshelp/Button" to="penshelp" method="_on_button_pressed"]
