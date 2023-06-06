@@ -12,3 +12,6 @@ func _on_node_2d_lost_1():
 
 func _on_button_pressed():
 	visible = false
+
+
+

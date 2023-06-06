@@ -100,3 +100,39 @@ func _on_player_shoot():
 
 func _on_startgame_pressed():
 	gameStarted = true
+
+
+func _on_en_1_lose_game():
+	emit_signal("lost1")
+	gameStarted = false
+	timerValue = 15
+
+
+func _on_en_2_lose_game():
+	emit_signal("lost1")
+	gameStarted = false
+	timerValue = 15
+
+
+func _on_en_3_lose_game():
+	emit_signal("lost1")
+	gameStarted = false
+	timerValue = 15
+
+
+func _on_en_4_lose_game():
+	emit_signal("lost1")
+	gameStarted = false
+	timerValue = 15
+
+
+func _on_en_5_lose_game():
+	emit_signal("lost1")
+	gameStarted = false
+	timerValue = 15
+
+
+func _on_en_6_lose_game():
+	emit_signal("lost1")
+	gameStarted = false
+	timerValue = 15

@@ -56,3 +56,4 @@ func _on_node_2d_scored():
 
 func _on_node_2d_tm_loc(loc):
 	tmloc = loc
+

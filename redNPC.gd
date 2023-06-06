@@ -7,6 +7,7 @@ var animation_player: AnimationPlayer
 var speed = .06
 var toballspeed = .3
 var gameStarted = false
+signal lose_game
 func _ready():
 	animation_player = $AnimationPlayer
 
@@ -17,6 +18,8 @@ func _physics_process(delta):
 		var direction = (ballloc - position).normalized()
 		if position.distance_to(ballloc) < 40:
 			move_and_collide(direction*toballspeed)
+		if position.distance_to(ballloc) < 7:
+			emit_signal("lose_game")
 		if true:
 			var dir = Vector2.ZERO
 			if Input.is_action_pressed("up"):
