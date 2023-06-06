@@ -19,16 +19,16 @@ func _physics_process(delta):
 		dir = dir.normalized()
 		move_and_collide(dir * speed)
 	
-	
-		if dir.length() > 0:
-			if dir.y > 0:
-				$AnimatedSprite2D.play("run_down")
-				$AnimatedSprite2D.flip_h = false
-			elif dir.y < 0:
-				$AnimatedSprite2D.play("run_up")
-				$AnimatedSprite2D.flip_h = false
-		elif scored == false:
-			$AnimatedSprite2D.play("idle")
+		if scored == false:
+			if dir.length() > 0:
+				if dir.y > 0:
+					$AnimatedSprite2D.play("run_down")
+					$AnimatedSprite2D.flip_h = false
+				elif dir.y < 0:
+					$AnimatedSprite2D.play("run_up")
+					$AnimatedSprite2D.flip_h = false
+			else:
+				$AnimatedSprite2D.play("idle")
 
 
 
