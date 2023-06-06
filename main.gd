@@ -9,24 +9,36 @@ var goalMID = Vector2(162,63)
 var goalLEFT = Vector2(130,63)
 var goalRIGHT = Vector2(192,63)
 var attachedNow = false
-var damping = .999
+var damping = .99
 var currentVelocity: Vector2
 var score = false
+var timerValue = 15
+var gameStarted = false
+signal lost1
 signal attached
 signal scored
+signal tmLoc(loc)
 func _ready() -> void:
 	player = get_node("Player")
 	soccerBall = get_node("soccerball")
-	ballPhysics = soccerBall.get_node("CollisionShape2D").get_node("RigidBody2D")
 
 func _physics_process(delta: float) -> void:
+	if gameStarted:
+		timerValue -= delta
+		if timerValue <= 0:
+			emit_signal("lost1")
+			gameStarted = false
+			timerValue = 15
+		var fmtTimer = str(timerValue).pad_decimals(2)
+		get_node("scoreboard/timer").text = str(fmtTimer)
 	var distance = player.position.distance_to(soccerBall.position)
 	currentVelocity *= damping
 	if score == false:
 		soccerBall.move_and_collide(currentVelocity * delta)
-	if soccerBall.position.y < 67:
+	if soccerBall.position.y < 67 && soccerBall.position.x >129 && soccerBall.position.x < 193:
 		if score == false:
 			emit_signal("scored")
+			gameStarted = false
 			score = true
 	if distance < 6:
 		attachedNow = true
@@ -45,15 +57,12 @@ func find_closest_teammate():
 		if distance < closest_distance:
 			closest_distance = distance
 			closest_teammate = teammate
-	
 	return closest_teammate
-var passForce = 10
+var passForce = 90
 func _on_player_passing():
-	soccerBall.set_deferred("collision_layer", 1)
-	soccerBall.set_deferred("collision_mask", 1)
+	damping = .98
 	var tmtopass = find_closest_teammate()
 	if attachedNow:
-		passForce = soccerBall.position.distance_to(tmtopass.position)*6
 		var direction = (tmtopass.position - soccerBall.position).normalized()
 		var velocity = direction * passForce
 		var positionSave = tmtopass.position
@@ -61,12 +70,11 @@ func _on_player_passing():
 		player.position = positionSave
 		currentVelocity = velocity
 	attachedNow = false
-		
+	emit_signal("tmLoc",tmtopass.position)
 var shootSpeed = 200
 func _on_player_shoot():
+	damping = .99
 	var dToGoal
-	soccerBall.set_deferred("collision_layer", 1)
-	soccerBall.set_deferred("collision_mask", 1)
 	if attachedNow:
 		if soccerBall.position.distance_to(goalLEFT) < soccerBall.position.distance_to(goalMID) && soccerBall.position.distance_to(goalLEFT) < soccerBall.position.distance_to(goalRIGHT):
 			var direction = (goalLEFT - soccerBall.position).normalized()
@@ -83,5 +91,12 @@ func _on_player_shoot():
 			var velocity = direction * shootSpeed
 			dToGoal = soccerBall.position.distance_to(goalRIGHT)
 			currentVelocity = velocity
-	print(dToGoal)
 	attachedNow = false
+
+
+
+
+
+
+func _on_startgame_pressed():
+	gameStarted = true

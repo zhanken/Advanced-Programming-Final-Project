@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dvq2x54q1gscy"]
+[gd_scene load_steps=30 format=3 uid="uid://dvq2x54q1gscy"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_beaic"]
 [ext_resource type="Texture2D" uid="uid://ut3f5mf2pcaf" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Ready_Made_Pitch_And_Stadium.png" id="1_gsyce"]
@@ -22,6 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://c68vthgl6yhys" path="res://rashford.jpg" id="14_147yd"]
 [ext_resource type="Script" path="res://penshelp.gd" id="15_yfec1"]
 [ext_resource type="Texture2D" uid="uid://c2n3kjtv7aws8" path="res://terry.png" id="16_5giyu"]
+[ext_resource type="Script" path="res://losegame.gd" id="23_3b6ef"]
+[ext_resource type="Texture2D" uid="uid://gp6rxe6cg8s2" path="res://dortmundlosing.jpg" id="23_vp2ra"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_54w7l"]
 
@@ -1706,10 +1708,25 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(196616, 327682, 3, 196617, 327682, 3, 196618, 327682, 3, 196619, 327682, 3, 196620, 393218, 3, 196615, 262146, 3, 1376263, 262146, 4, 1376264, 327682, 4, 1376265, 327682, 4, 1376266, 327682, 4, 1376267, 327682, 4, 1376268, 393218, 4)
 
 [node name="en1" parent="." instance=ExtResource("7_7lndb")]
-position = Vector2(158, 97)
+position = Vector2(154, 119)
+
+[node name="en2" parent="." instance=ExtResource("7_7lndb")]
+position = Vector2(119, 115)
+
+[node name="en3" parent="." instance=ExtResource("7_7lndb")]
+position = Vector2(217, 116)
+
+[node name="en4" parent="." instance=ExtResource("7_7lndb")]
+position = Vector2(164, 84)
+
+[node name="en5" parent="." instance=ExtResource("7_7lndb")]
+position = Vector2(202, 81)
+
+[node name="en6" parent="." instance=ExtResource("7_7lndb")]
+position = Vector2(119, 83)
 
 [node name="Player" parent="." instance=ExtResource("2_b1253")]
-position = Vector2(161, 135)
+position = Vector2(188, 167)
 
 [node name="tm1" parent="." instance=ExtResource("6_u3f4d")]
 position = Vector2(212, 82)
@@ -1724,10 +1741,10 @@ position = Vector2(100, 125)
 position = Vector2(228, 129)
 
 [node name="tm4" parent="." instance=ExtResource("6_u3f4d")]
-position = Vector2(163, 172)
+position = Vector2(121, 163)
 
 [node name="soccerball" parent="." instance=ExtResource("3_6b2ps")]
-position = Vector2(165, 135)
+position = Vector2(160, 173)
 
 [node name="celebrationimage" type="CanvasLayer" parent="."]
 visible = false
@@ -1773,7 +1790,6 @@ offset_bottom = 679.0
 texture = ExtResource("12_0n3my")
 
 [node name="scoreboard" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("10_4mu1m")
 
 [node name="blueteam" type="Label" parent="scoreboard"]
@@ -1783,12 +1799,19 @@ offset_right = 1128.0
 offset_bottom = 602.0
 script = ExtResource("8_y34g4")
 
-[node name="Label2" type="Label" parent="scoreboard"]
+[node name="redteam" type="Label" parent="scoreboard"]
 offset_left = 1036.0
 offset_top = 605.0
 offset_right = 1132.0
 offset_bottom = 631.0
 text = "red team: 1"
+
+[node name="timer" type="Label" parent="scoreboard"]
+offset_left = 1033.0
+offset_top = 499.0
+offset_right = 1132.0
+offset_bottom = 525.0
+theme_override_font_sizes/font_size = 40
 
 [node name="game1end" type="CanvasLayer" parent="."]
 visible = false
@@ -1875,7 +1898,7 @@ texture = ExtResource("14_147yd")
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 30
-text = "First, you will have 25 seconds to score the equalizing goal. 
+text = "First, you will have 15 seconds to score the equalizing goal. 
 Then, you have to win the penalty shootout. 
 
 W A S D to move
@@ -1892,6 +1915,7 @@ theme_override_font_sizes/font_size = 30
 text = "Got it"
 
 [node name="penshelp" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("15_yfec1")
 
 [node name="terry" type="TextureRect" parent="penshelp"]
@@ -1924,6 +1948,30 @@ offset_bottom = 500.0
 theme_override_font_sizes/font_size = 50
 text = "I AM READY"
 
+[node name="losegame" type="CanvasLayer" parent="."]
+script = ExtResource("23_3b6ef")
+
+[node name="TextureRect" type="TextureRect" parent="losegame"]
+offset_right = 1153.0
+offset_bottom = 653.0
+texture = ExtResource("23_vp2ra")
+
+[node name="Label" type="Label" parent="losegame"]
+offset_left = 44.0
+offset_top = 7.0
+offset_right = 1055.0
+offset_bottom = 147.0
+theme_override_font_sizes/font_size = 100
+text = "tough loss. skill issue"
+
+[node name="Button" type="Button" parent="losegame"]
+offset_left = 635.0
+offset_top = 447.0
+offset_right = 879.0
+offset_bottom = 478.0
+text = "ok fine ill try this time"
+
+[connection signal="lost1" from="." to="losegame" method="_on_node_2d_lost_1"]
 [connection signal="scored" from="." to="tm1" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="tm2" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="tm3" method="_on_node_2d_scored"]
@@ -1932,12 +1980,21 @@ text = "I AM READY"
 [connection signal="scored" from="." to="soccerball" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="scoreboard/blueteam" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="game1end" method="_on_node_2d_scored"]
+[connection signal="tmLoc" from="." to="soccerball" method="_on_node_2d_tm_loc"]
 [connection signal="passing" from="Player" to="." method="_on_player_passing"]
 [connection signal="passing" from="Player" to="soccerball" method="_on_player_passing"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="shoot" from="Player" to="soccerball" method="_on_player_shoot"]
+[connection signal="ballchange" from="soccerball" to="." method="_on_soccerball_ballchange"]
 [connection signal="pressed" from="game1end/pensbutton" to="game1end" method="_on_button_pressed"]
 [connection signal="pressed" from="game1end/pensbutton" to="penshelp" method="_on_pensbutton_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="." method="_on_startgame_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="en1" method="_on_startgame_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="en2" method="_on_startgame_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="en3" method="_on_startgame_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="en4" method="_on_startgame_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="en5" method="_on_startgame_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="en6" method="_on_startgame_pressed"]
 [connection signal="pressed" from="gamestart/startgame" to="scoreboard" method="_on_startgame_pressed"]
 [connection signal="pressed" from="gamestart/startgame" to="gamestart" method="_on_startgame_pressed"]
 [connection signal="text_changed" from="gamestart/teamname" to="scoreboard/blueteam" method="_on_teamname_text_changed"]
@@ -1945,3 +2002,5 @@ text = "I AM READY"
 [connection signal="pressed" from="gamestart/gotohelp" to="helpscreen" method="_on_gotohelp_pressed"]
 [connection signal="pressed" from="helpscreen/leavehelp" to="helpscreen" method="_on_leavehelp_pressed"]
 [connection signal="pressed" from="penshelp/Button" to="penshelp" method="_on_button_pressed"]
+[connection signal="pressed" from="losegame/Button" to="gamestart" method="_on_button_pressed"]
+[connection signal="pressed" from="losegame/Button" to="losegame" method="_on_button_pressed"]
