@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvq2x54q1gscy"]
+[gd_scene load_steps=13 format=3 uid="uid://dvq2x54q1gscy"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_beaic"]
 [ext_resource type="Texture2D" uid="uid://ut3f5mf2pcaf" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Ready_Made_Pitch_And_Stadium.png" id="1_gsyce"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dkt7x1pbx0r2c" path="res://soccerball.tscn" id="3_6b2ps"]
 [ext_resource type="Texture2D" uid="uid://b8542rr60ovy6" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Modular_Pitch_and_Stadium_8x8_Tileset.png" id="3_g1uvf"]
 [ext_resource type="PackedScene" uid="uid://coax3eodf6rts" path="res://blueNPC.tscn" id="6_u3f4d"]
+[ext_resource type="PackedScene" uid="uid://daupe30wll8ct" path="res://redNPC.tscn" id="7_7lndb"]
+[ext_resource type="Script" path="res://blueteamlabel.gd" id="8_y34g4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_54w7l"]
 
@@ -1687,6 +1689,9 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(196616, 327682, 3, 196617, 327682, 3, 196618, 327682, 3, 196619, 327682, 3, 196620, 393218, 3, 196615, 262146, 3, 1376263, 262146, 4, 1376264, 327682, 4, 1376265, 327682, 4, 1376266, 327682, 4, 1376267, 327682, 4, 1376268, 393218, 4)
 
+[node name="en1" parent="." instance=ExtResource("7_7lndb")]
+position = Vector2(158, 97)
+
 [node name="Player" parent="." instance=ExtResource("2_b1253")]
 position = Vector2(161, 135)
 
@@ -1699,14 +1704,30 @@ position = Vector2(101, 83)
 [node name="tm3" parent="." instance=ExtResource("6_u3f4d")]
 position = Vector2(100, 125)
 
-[node name="tm4" parent="." instance=ExtResource("6_u3f4d")]
-position = Vector2(163, 172)
-
 [node name="tm5" parent="." instance=ExtResource("6_u3f4d")]
 position = Vector2(228, 129)
+
+[node name="tm4" parent="." instance=ExtResource("6_u3f4d")]
+position = Vector2(163, 172)
 
 [node name="soccerball" parent="." instance=ExtResource("3_6b2ps")]
 position = Vector2(165, 135)
 
+[node name="blueteam" type="Label" parent="."]
+offset_left = 208.0
+offset_top = 161.0
+offset_right = 304.0
+offset_bottom = 187.0
+text = "blue team: 0"
+script = ExtResource("8_y34g4")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 208.0
+offset_top = 186.0
+offset_right = 304.0
+offset_bottom = 212.0
+text = "red team: 1"
+
+[connection signal="scored" from="." to="blueteam" method="_on_node_2d_scored"]
 [connection signal="passing" from="Player" to="." method="_on_player_passing"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]

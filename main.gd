@@ -9,10 +9,11 @@ var goalMID = Vector2(162,63)
 var goalLEFT = Vector2(130,63)
 var goalRIGHT = Vector2(192,63)
 var attachedNow = false
-var damping = .9
+var damping = .999
 var currentVelocity: Vector2
-var teammates = [get_node("tm1"), get_node("tm2"), get_node("tm3"), get_node("tm4"), get_node("tm5")]
+var score = false
 signal attached
+signal scored
 func _ready() -> void:
 	player = get_node("Player")
 	soccerBall = get_node("soccerball")
@@ -23,7 +24,9 @@ func _physics_process(delta: float) -> void:
 	currentVelocity *= damping
 	soccerBall.move_and_collide(currentVelocity * delta)
 	if soccerBall.position.y < 67:
-		print('GOALL')
+		if score == false:
+			emit_signal("scored")
+			score = true
 	if distance < 6:
 		attachedNow = true
 
@@ -34,16 +37,18 @@ func attachBall() -> void:
 
 func find_closest_teammate():
 	var closest_teammate = null
-	var closest_distance = INF # Set initial distance to a large value
-	
+	var closest_distance = INF# Set initial distance to a large value
+	var teammates = [get_node("tm1"),get_node("tm2"),get_node("tm3"),get_node("tm4"),get_node("tm5")]
 	for teammate in teammates:
+		var playerpos = get_node("Player").position
+		var tmpos = teammate.position
 		var distance = get_node("Player").position.distance_to(teammate.position)
 		if distance < closest_distance:
 			closest_distance = distance
 			closest_teammate = teammate
 	
 	return closest_teammate
-var passForce = 100
+var passForce = 10
 func _on_player_passing():
 	soccerBall.set_deferred("collision_layer", 1)
 	soccerBall.set_deferred("collision_mask", 1)
@@ -58,7 +63,7 @@ func _on_player_passing():
 		currentVelocity = velocity
 	attachedNow = false
 		
-var shootSpeed = 700
+var shootSpeed = 70
 func _on_player_shoot():
 	var dToGoal
 	soccerBall.set_deferred("collision_layer", 1)

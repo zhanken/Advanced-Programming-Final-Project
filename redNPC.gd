@@ -2,11 +2,9 @@ extends CharacterBody2D
 
 # Variables
 var target_position = Vector2.ZERO
-var move_speed = 1
 var min_distance = 10
 var animation_player: AnimationPlayer
 var speed = .06
-
 func _ready():
 	animation_player = $AnimationPlayer
 
