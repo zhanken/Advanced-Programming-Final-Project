@@ -56,3 +56,11 @@ func _on_node_2d_scored():
 func _on_node_2d_tm_loc(loc):
 	tmloc = loc
 
+
+
+func _on_startgame_pressed():
+	attachable = true
+
+
+func _on_button_pressed():
+	attachable = false

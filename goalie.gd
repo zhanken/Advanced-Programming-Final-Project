@@ -1,15 +1,18 @@
 extends CharacterBody2D
 var go = false
-var posspeed = .003
-var speed = 2
+var posspeed = .006
+var speed = 2.2
 var gameon = true
 signal saved
 func _physics_process(delta):
+	if position.y != 68:
+		position.y = 68
 	var ball = get_parent().get_node("soccerball")
 	var ballpos = ball.position
 	var xtoball = ballpos.x - position.x
 	var xmove = Vector2(xtoball,0)
-	move_and_collide(xmove*posspeed)
+	if gameon:
+		move_and_collide(xmove*posspeed)
 	if go:
 		var direction = (ballpos - position).normalized()
 		move_and_collide(direction*speed)
@@ -27,3 +30,13 @@ func _on_node_2d_shooting():
 func _on_node_2d_scored():
 	gameon = false
 	go = false
+
+
+func _on_player_penshot():
+	gameon = true
+	go = true
+
+
+func _on_node_2d_waitscore():
+	go = false
+	gameon = false

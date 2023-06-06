@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dvq2x54q1gscy"]
+[gd_scene load_steps=36 format=3 uid="uid://dvq2x54q1gscy"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_beaic"]
 [ext_resource type="Texture2D" uid="uid://ut3f5mf2pcaf" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Ready_Made_Pitch_And_Stadium.png" id="1_gsyce"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://game1end.gd" id="9_8rh5l"]
 [ext_resource type="Texture2D" uid="uid://h3wtj8jau8h6" path="res://mbappe.jpg" id="9_f0c0w"]
 [ext_resource type="Script" path="res://scoreboard.gd" id="10_4mu1m"]
+[ext_resource type="Script" path="res://shootoutUI.gd" id="10_moglm"]
 [ext_resource type="Texture2D" uid="uid://0ecaccaea4pm" path="res://modric.jpeg" id="10_stthn"]
 [ext_resource type="Texture2D" uid="uid://bn262pfxnb8vd" path="res://ronaldosiuu.jpg" id="10_toayk"]
 [ext_resource type="Script" path="res://gamestart.gd" id="11_dxsh8"]
@@ -26,6 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://c2n3kjtv7aws8" path="res://terry.png" id="16_5giyu"]
 [ext_resource type="Script" path="res://losegame.gd" id="23_3b6ef"]
 [ext_resource type="Texture2D" uid="uid://gp6rxe6cg8s2" path="res://dortmundlosing.jpg" id="23_vp2ra"]
+[ext_resource type="Script" path="res://finalwin.gd" id="28_43vuw"]
+[ext_resource type="Script" path="res://actualwin.gd" id="29_7koyp"]
+[ext_resource type="Script" path="res://unluckypkloss.gd" id="30_kj17e"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_54w7l"]
 
@@ -1752,6 +1756,23 @@ position = Vector2(121, 163)
 [node name="soccerball" parent="." instance=ExtResource("3_6b2ps")]
 position = Vector2(160, 173)
 
+[node name="shootoutUI" type="CanvasLayer" parent="."]
+script = ExtResource("10_moglm")
+
+[node name="right" type="Button" parent="shootoutUI"]
+offset_left = 778.0
+offset_top = 407.0
+offset_right = 926.0
+offset_bottom = 492.0
+text = "right"
+
+[node name="left" type="Button" parent="shootoutUI"]
+offset_left = 148.0
+offset_top = 425.0
+offset_right = 274.0
+offset_bottom = 511.0
+text = "Left"
+
 [node name="celebrationimage" type="CanvasLayer" parent="."]
 visible = false
 
@@ -1796,6 +1817,7 @@ offset_bottom = 679.0
 texture = ExtResource("12_0n3my")
 
 [node name="scoreboard" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("10_4mu1m")
 
 [node name="blueteam" type="Label" parent="scoreboard"]
@@ -1932,15 +1954,12 @@ texture = ExtResource("16_5giyu")
 [node name="Label" type="Label" parent="penshelp"]
 offset_right = 40.0
 offset_bottom = 23.0
-text = "Good job! It's time for the penalty shootout.
+text = "Good job! It's time for you to take your penalty shot now. You are in line to take the first shot for your team.
+ If you miss your penalty kick, you lose. If you make it, your team has to take their pens as welll. Hopefully your team is good at pens :D
 
 As you stand waiting to take the penalty, press the direction buttons to guide your shot.
 You don't get to see where the shot will go, so don't overcorrect!
-
-When you think the aim is good, press and hold the shot meter. If you overcharge the shot, you have a higher chance of missing!
-
-
-
+When you think the aim is good, press and hold the shot meter.
 
 Higher shot power and shooting close to the posts will decrease the chances of the keeper saving the penalty!
 
@@ -1978,7 +1997,90 @@ offset_right = 879.0
 offset_bottom = 478.0
 text = "ok fine ill try this time"
 
+[node name="finalwin" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("28_43vuw")
+
+[node name="TextureRect" type="TextureRect" parent="finalwin"]
+offset_left = -12.0
+offset_top = -4.0
+offset_right = 1171.0
+offset_bottom = 668.0
+texture = ExtResource("8_12kwy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="finalwin"]
+offset_left = 9.0
+offset_top = -12.0
+offset_right = 1105.0
+offset_bottom = 408.0
+theme_override_font_sizes/font_size = 100
+text = "you scored good job :D
+now lets see if your
+team scores"
+
+[node name="Button" type="Button" parent="finalwin"]
+offset_left = 514.0
+offset_top = 526.0
+offset_right = 702.0
+offset_bottom = 623.0
+text = "simulate"
+
+[node name="result" type="Label" parent="finalwin"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="actualwin" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("29_7koyp")
+
+[node name="TextureRect" type="TextureRect" parent="actualwin"]
+offset_right = 1201.0
+offset_bottom = 685.0
+texture = ExtResource("10_stthn")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="actualwin"]
+offset_left = 460.0
+offset_top = 2.0
+offset_right = 1126.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 150
+text = "You won!"
+
+[node name="Label2" type="Label" parent="actualwin"]
+offset_left = 774.0
+offset_top = 255.0
+offset_right = 1028.0
+offset_bottom = 460.0
+theme_override_font_sizes/font_size = 150
+
+[node name="unluckypkloss" type="CanvasLayer" parent="."]
+script = ExtResource("30_kj17e")
+
+[node name="TextureRect" type="TextureRect" parent="unluckypkloss"]
+offset_right = 1187.0
+offset_bottom = 671.0
+texture = ExtResource("23_vp2ra")
+
+[node name="Label" type="Label" parent="unluckypkloss"]
+offset_left = 76.0
+offset_top = 29.0
+offset_right = 1108.0
+offset_bottom = 135.0
+theme_override_font_sizes/font_size = 75
+text = "you lost to team diff unlucky"
+
+[node name="Label2" type="Label" parent="unluckypkloss"]
+offset_left = 666.0
+offset_top = 319.0
+offset_right = 977.0
+offset_bottom = 482.0
+theme_override_font_sizes/font_size = 150
+
+[connection signal="lost1" from="." to="shootoutUI" method="_on_node_2d_lost_1"]
 [connection signal="lost1" from="." to="losegame" method="_on_node_2d_lost_1"]
+[connection signal="penswin" from="." to="finalwin" method="_on_node_2d_penswin"]
 [connection signal="scored" from="." to="goalie" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="en1" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="en2" method="_on_node_2d_scored"]
@@ -1996,7 +2098,14 @@ text = "ok fine ill try this time"
 [connection signal="scored" from="." to="game1end" method="_on_node_2d_scored"]
 [connection signal="shooting" from="." to="goalie" method="_on_node_2d_shooting"]
 [connection signal="tmLoc" from="." to="soccerball" method="_on_node_2d_tm_loc"]
+[connection signal="waitscore" from="." to="goalie" method="_on_node_2d_waitscore"]
 [connection signal="saved" from="goalie" to="." method="_on_goalie_saved"]
+[connection signal="saved" from="goalie" to="en1" method="_on_goalie_saved"]
+[connection signal="saved" from="goalie" to="en2" method="_on_goalie_saved"]
+[connection signal="saved" from="goalie" to="en3" method="_on_goalie_saved"]
+[connection signal="saved" from="goalie" to="en4" method="_on_goalie_saved"]
+[connection signal="saved" from="goalie" to="en5" method="_on_goalie_saved"]
+[connection signal="saved" from="goalie" to="en6" method="_on_goalie_saved"]
 [connection signal="lose_game" from="en1" to="." method="_on_en_1_lose_game"]
 [connection signal="lose_game" from="en1" to="losegame" method="_on_en_1_lose_game"]
 [connection signal="lose_game" from="en2" to="." method="_on_en_2_lose_game"]
@@ -2011,9 +2120,15 @@ text = "ok fine ill try this time"
 [connection signal="lose_game" from="en6" to="losegame" method="_on_en_6_lose_game"]
 [connection signal="passing" from="Player" to="." method="_on_player_passing"]
 [connection signal="passing" from="Player" to="soccerball" method="_on_player_passing"]
+[connection signal="penshot" from="Player" to="." method="_on_player_penshot"]
+[connection signal="penshot" from="Player" to="goalie" method="_on_player_penshot"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="shoot" from="Player" to="soccerball" method="_on_player_shoot"]
 [connection signal="ballchange" from="soccerball" to="." method="_on_soccerball_ballchange"]
+[connection signal="button_down" from="shootoutUI/right" to="." method="_on_right_button_down"]
+[connection signal="button_up" from="shootoutUI/right" to="." method="_on_right_button_up"]
+[connection signal="button_down" from="shootoutUI/left" to="." method="_on_left_button_down"]
+[connection signal="button_up" from="shootoutUI/left" to="." method="_on_left_button_up"]
 [connection signal="pressed" from="game1end/pensbutton" to="game1end" method="_on_button_pressed"]
 [connection signal="pressed" from="game1end/pensbutton" to="penshelp" method="_on_pensbutton_pressed"]
 [connection signal="pressed" from="gamestart/startgame" to="." method="_on_startgame_pressed"]
@@ -2023,6 +2138,7 @@ text = "ok fine ill try this time"
 [connection signal="pressed" from="gamestart/startgame" to="en4" method="_on_startgame_pressed"]
 [connection signal="pressed" from="gamestart/startgame" to="en5" method="_on_startgame_pressed"]
 [connection signal="pressed" from="gamestart/startgame" to="en6" method="_on_startgame_pressed"]
+[connection signal="pressed" from="gamestart/startgame" to="soccerball" method="_on_startgame_pressed"]
 [connection signal="pressed" from="gamestart/startgame" to="scoreboard" method="_on_startgame_pressed"]
 [connection signal="pressed" from="gamestart/startgame" to="gamestart" method="_on_startgame_pressed"]
 [connection signal="text_changed" from="gamestart/teamname" to="scoreboard/blueteam" method="_on_teamname_text_changed"]
@@ -2030,6 +2146,11 @@ text = "ok fine ill try this time"
 [connection signal="pressed" from="gamestart/gotohelp" to="helpscreen" method="_on_gotohelp_pressed"]
 [connection signal="pressed" from="helpscreen/leavehelp" to="helpscreen" method="_on_leavehelp_pressed"]
 [connection signal="pressed" from="penshelp/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="penshelp/Button" to="soccerball" method="_on_button_pressed"]
+[connection signal="pressed" from="penshelp/Button" to="shootoutUI" method="_on_button_pressed"]
 [connection signal="pressed" from="penshelp/Button" to="penshelp" method="_on_button_pressed"]
 [connection signal="pressed" from="losegame/Button" to="gamestart" method="_on_button_pressed"]
 [connection signal="pressed" from="losegame/Button" to="losegame" method="_on_button_pressed"]
+[connection signal="loseshootout" from="finalwin" to="unluckypkloss" method="_on_finalwin_loseshootout"]
+[connection signal="winshootout" from="finalwin" to="actualwin" method="_on_finalwin_winshootout"]
+[connection signal="pressed" from="finalwin/Button" to="finalwin" method="_on_button_pressed"]

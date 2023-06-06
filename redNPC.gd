@@ -49,3 +49,7 @@ func _on_startgame_pressed():
 
 func _on_node_2d_scored():
 	gameStarted = false
+
+
+func _on_goalie_saved():
+	gameStarted = false

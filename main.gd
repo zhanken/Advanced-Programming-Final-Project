@@ -14,6 +14,18 @@ var currentVelocity: Vector2
 var score = false
 var timerValue = 15
 var gameStarted = false
+var countright = false
+var countleft = false
+var countpower = false
+var rightValue = 0
+var leftValue = 0
+var powerValue = 0
+var pens = false
+var counter = 0
+var stop = false
+var startCounting = false
+signal waitscore
+signal penswin
 signal lost1
 signal attached
 signal scored
@@ -24,6 +36,16 @@ func _ready() -> void:
 	soccerBall = get_node("soccerball")
 
 func _physics_process(delta: float) -> void:
+	if startCounting:
+		counter += delta
+		if counter >= 2:
+			emit_signal("penswin")
+	if countright:
+		rightValue+=delta*10
+	if countleft:
+		leftValue+=delta*10
+	if countpower:
+		powerValue+=delta*100
 	if gameStarted:
 		timerValue -= delta
 		if timerValue <= 0:
@@ -34,13 +56,21 @@ func _physics_process(delta: float) -> void:
 		get_node("scoreboard/timer").text = str(fmtTimer)
 	var distance = player.position.distance_to(soccerBall.position)
 	currentVelocity *= damping
-	if score == false:
-		soccerBall.move_and_collide(currentVelocity * delta)
+	if score == false || pens:
+		if stop == false:
+			soccerBall.move_and_collide(currentVelocity * delta)
 	if soccerBall.position.y < 67 && soccerBall.position.x >129 && soccerBall.position.x < 193:
-		if score == false:
+		if score == false && gameStarted:
+			get_node("soccerball").position = Vector2(171,161)
 			emit_signal("scored")
 			gameStarted = false
 			score = true
+		if pens:
+			emit_signal("waitscore")
+			startCounting = true
+			gameStarted = false
+			score = true
+			stop = true
 	if distance < 6:
 		attachedNow = true
 
@@ -99,24 +129,27 @@ func _on_player_shoot():
 
 
 func penalty_setup():
-	get_node("en1").position = Vector2(85,115)
-	get_node("en2").position = Vector2(100,115)
-	get_node("en3").position = Vector2(115,115)
-	get_node("en4").position = Vector2(145,115)
-	get_node("en5").position = Vector2(175,115)
-	get_node("en6").position = Vector2(205,115)
+	currentVelocity = Vector2(0,0)
+	get_node("en1").position = Vector2(1000,116)
+	get_node("en2").position = Vector2(1020,116)
+	get_node("en3").position = Vector2(1030,116)
+	get_node("en4").position = Vector2(1040,116)
+	get_node("en5").position = Vector2(1050,116)
+	get_node("en6").position = Vector2(1070,116)
+	get_node("goalie").position = Vector2(162.5,68)
 	
-	get_node("soccerball").position = Vector2(160,96)
+	get_node("soccerball").position = Vector2(160,130)
 	
-	get_node("Player").position = Vector2(160,96)
+	get_node("Player").position = Vector2(160,130)
 	
-	get_node("tm1").position = Vector2(100,115)
-	get_node("tm2").position = Vector2(130,115)
-	get_node("tm3").position = Vector2(160,115)
-	get_node("tm4").position = Vector2(190,115)
-	get_node("tm5").position = Vector2(230,115)
+	get_node("tm1").position = Vector2(1110,116)
+	get_node("tm2").position = Vector2(1143,116)
+	get_node("tm3").position = Vector2(1438,116)
+	get_node("tm4").position = Vector2(1632,116)
+	get_node("tm5").position = Vector2(1572,116)
 
 func _on_startgame_pressed():
+	currentVelocity = Vector2(0,0)
 	gameStarted = true
 	get_node("en1").position = Vector2(212,116)
 	get_node("en2").position = Vector2(162,111)
@@ -124,7 +157,7 @@ func _on_startgame_pressed():
 	get_node("en4").position = Vector2(118,82)
 	get_node("en5").position = Vector2(166,88)
 	get_node("en6").position = Vector2(205,80)
-	
+	get_node("goalie").position = Vector2(162.5,68)
 	get_node("soccerball").position = Vector2(171,161)
 	
 	get_node("Player").position = Vector2(186,164)
@@ -136,49 +169,88 @@ func _on_startgame_pressed():
 	get_node("tm5").position = Vector2(225,97)
 
 
-
-func _on_en_1_lose_game():
-	emit_signal("lost1")
+func resetConditions():
+	currentVelocity = Vector2(0,0)
 	gameStarted = false
 	timerValue = 15
+	
+func _on_en_1_lose_game():
+	emit_signal("lost1")
+	resetConditions()
 
 
 func _on_en_2_lose_game():
 	emit_signal("lost1")
-	gameStarted = false
-	timerValue = 15
+	resetConditions()
 
 
 func _on_en_3_lose_game():
 	emit_signal("lost1")
-	gameStarted = false
-	timerValue = 15
+	resetConditions()
 
 
 func _on_en_4_lose_game():
 	emit_signal("lost1")
-	gameStarted = false
-	timerValue = 15
+	resetConditions()
 
 
 func _on_en_5_lose_game():
 	emit_signal("lost1")
-	gameStarted = false
-	timerValue = 15
+	resetConditions()
 
 
 func _on_en_6_lose_game():
 	emit_signal("lost1")
-	gameStarted = false
-	timerValue = 15
+	resetConditions()
 
 
 func _on_goalie_saved():
 	emit_signal("lost1")
-	gameStarted = false
-	timerValue = 15
+	resetConditions()
 
 
 func _on_button_pressed():
 	get_node("scoreboard").visible = false
 	penalty_setup()
+
+
+func _on_right_button_down():
+	countright = true
+
+
+func _on_right_button_up():
+	countright = false
+
+
+func _on_left_button_down():
+	countleft = true
+
+
+func _on_left_button_up():
+	countleft = false
+
+
+func _on_power_button_down():
+	countpower = true
+
+
+func _on_power_button_up():
+	countpower = false
+
+
+func _on_player_penshot():
+	pens = true
+	var rRads = deg_to_rad(rightValue)
+	var lRads = deg_to_rad(leftValue)
+	var rCos = cos(rRads)
+	var lCos = cos(lRads)
+	var rSin = sin(rRads)
+	var lSin = sin(lRads)
+	var directiontomid = goalMID-Vector2(160,96)
+	var direc: Vector2
+	if lSin == 0:
+		direc = Vector2(rCos,rSin)*directiontomid
+	else:
+		direc = Vector2(-lCos,lSin)*directiontomid
+	currentVelocity = direc * 60
+	

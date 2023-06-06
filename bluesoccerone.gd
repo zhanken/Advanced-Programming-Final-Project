@@ -3,7 +3,8 @@ extends CharacterBody2D
 signal location
 signal passing
 signal shoot
-var speed = .6
+signal penshot
+var speed = .65
 var lastdir: Vector2 = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,6 +46,8 @@ func _physics_process(delta):
 			emit_signal("passing")
 		if Input.is_action_pressed("shoot"):
 			emit_signal("shoot")
+		if Input.is_action_pressed("penshot"):
+			emit_signal("penshot")
 		
 		lastdir = dir
 
