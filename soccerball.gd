@@ -16,7 +16,6 @@ func _physics_process(delta):
 	var playerN = get_parent().get_node("Player")
 	if position.distance_to(tmloc)<4:
 		emit_signal("ballchange",false)
-		print('stop bruh')
 	if position.x > 270:
 		position.x = 270
 	if position.x < 51:

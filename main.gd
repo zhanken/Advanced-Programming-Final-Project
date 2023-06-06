@@ -17,6 +17,7 @@ var gameStarted = false
 signal lost1
 signal attached
 signal scored
+signal shooting
 signal tmLoc(loc)
 func _ready() -> void:
 	player = get_node("Player")
@@ -91,15 +92,49 @@ func _on_player_shoot():
 			var velocity = direction * shootSpeed
 			dToGoal = soccerBall.position.distance_to(goalRIGHT)
 			currentVelocity = velocity
+	emit_signal("shooting")
 	attachedNow = false
 
 
 
 
-
+func penalty_setup():
+	get_node("en1").position = Vector2(85,115)
+	get_node("en2").position = Vector2(100,115)
+	get_node("en3").position = Vector2(115,115)
+	get_node("en4").position = Vector2(145,115)
+	get_node("en5").position = Vector2(175,115)
+	get_node("en6").position = Vector2(205,115)
+	
+	get_node("soccerball").position = Vector2(160,96)
+	
+	get_node("Player").position = Vector2(160,96)
+	
+	get_node("tm1").position = Vector2(100,115)
+	get_node("tm2").position = Vector2(130,115)
+	get_node("tm3").position = Vector2(160,115)
+	get_node("tm4").position = Vector2(190,115)
+	get_node("tm5").position = Vector2(230,115)
 
 func _on_startgame_pressed():
 	gameStarted = true
+	get_node("en1").position = Vector2(212,116)
+	get_node("en2").position = Vector2(162,111)
+	get_node("en3").position = Vector2(124,107)
+	get_node("en4").position = Vector2(118,82)
+	get_node("en5").position = Vector2(166,88)
+	get_node("en6").position = Vector2(205,80)
+	
+	get_node("soccerball").position = Vector2(171,161)
+	
+	get_node("Player").position = Vector2(186,164)
+	
+	get_node("tm1").position = Vector2(227,131)
+	get_node("tm2").position = Vector2(126,160)
+	get_node("tm3").position = Vector2(104,123)
+	get_node("tm4").position = Vector2(99,90)
+	get_node("tm5").position = Vector2(225,97)
+
 
 
 func _on_en_1_lose_game():
@@ -136,3 +171,14 @@ func _on_en_6_lose_game():
 	emit_signal("lost1")
 	gameStarted = false
 	timerValue = 15
+
+
+func _on_goalie_saved():
+	emit_signal("lost1")
+	gameStarted = false
+	timerValue = 15
+
+
+func _on_button_pressed():
+	get_node("scoreboard").visible = false
+	penalty_setup()

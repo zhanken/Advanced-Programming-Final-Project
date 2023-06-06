@@ -18,8 +18,9 @@ func _physics_process(delta):
 		var direction = (ballloc - position).normalized()
 		if position.distance_to(ballloc) < 40:
 			move_and_collide(direction*toballspeed)
-		if position.distance_to(ballloc) < 7:
+		if position.distance_to(ballloc) < 4:
 			emit_signal("lose_game")
+			gameStarted = false
 		if true:
 			var dir = Vector2.ZERO
 			if Input.is_action_pressed("up"):
@@ -44,3 +45,7 @@ func _physics_process(delta):
 
 func _on_startgame_pressed():
 	gameStarted = true
+
+
+func _on_node_2d_scored():
+	gameStarted = false

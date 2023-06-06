@@ -1,10 +1,12 @@
-[gd_scene load_steps=30 format=3 uid="uid://dvq2x54q1gscy"]
+[gd_scene load_steps=32 format=3 uid="uid://dvq2x54q1gscy"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_beaic"]
 [ext_resource type="Texture2D" uid="uid://ut3f5mf2pcaf" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Ready_Made_Pitch_And_Stadium.png" id="1_gsyce"]
 [ext_resource type="PackedScene" uid="uid://cquhy50tgw5y6" path="res://bluesoccerone.tscn" id="2_b1253"]
 [ext_resource type="PackedScene" uid="uid://dkt7x1pbx0r2c" path="res://soccerball.tscn" id="3_6b2ps"]
 [ext_resource type="Texture2D" uid="uid://b8542rr60ovy6" path="res://Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Tiny_Soccer_Pixel_Pack_By_SecretHideout_011920/Modular_Pitch_and_Stadium_8x8_Tileset.png" id="3_g1uvf"]
+[ext_resource type="PackedScene" uid="uid://8naso60743uk" path="res://goalie.tscn" id="4_7cexv"]
+[ext_resource type="Script" path="res://goalie.gd" id="5_wq05l"]
 [ext_resource type="PackedScene" uid="uid://coax3eodf6rts" path="res://blueNPC.tscn" id="6_u3f4d"]
 [ext_resource type="PackedScene" uid="uid://daupe30wll8ct" path="res://redNPC.tscn" id="7_7lndb"]
 [ext_resource type="Texture2D" uid="uid://bmodbc3fwdmvr" path="res://sonny.jpeg" id="8_12kwy"]
@@ -1707,6 +1709,10 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(196616, 327682, 3, 196617, 327682, 3, 196618, 327682, 3, 196619, 327682, 3, 196620, 393218, 3, 196615, 262146, 3, 1376263, 262146, 4, 1376264, 327682, 4, 1376265, 327682, 4, 1376266, 327682, 4, 1376267, 327682, 4, 1376268, 393218, 4)
 
+[node name="goalie" parent="." instance=ExtResource("4_7cexv")]
+position = Vector2(160, 66)
+script = ExtResource("5_wq05l")
+
 [node name="en1" parent="." instance=ExtResource("7_7lndb")]
 position = Vector2(154, 119)
 
@@ -1949,6 +1955,7 @@ theme_override_font_sizes/font_size = 50
 text = "I AM READY"
 
 [node name="losegame" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("23_3b6ef")
 
 [node name="TextureRect" type="TextureRect" parent="losegame"]
@@ -1972,6 +1979,13 @@ offset_bottom = 478.0
 text = "ok fine ill try this time"
 
 [connection signal="lost1" from="." to="losegame" method="_on_node_2d_lost_1"]
+[connection signal="scored" from="." to="goalie" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="en1" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="en2" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="en3" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="en4" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="en5" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="en6" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="tm1" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="tm2" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="tm3" method="_on_node_2d_scored"]
@@ -1980,7 +1994,9 @@ text = "ok fine ill try this time"
 [connection signal="scored" from="." to="soccerball" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="scoreboard/blueteam" method="_on_node_2d_scored"]
 [connection signal="scored" from="." to="game1end" method="_on_node_2d_scored"]
+[connection signal="shooting" from="." to="goalie" method="_on_node_2d_shooting"]
 [connection signal="tmLoc" from="." to="soccerball" method="_on_node_2d_tm_loc"]
+[connection signal="saved" from="goalie" to="." method="_on_goalie_saved"]
 [connection signal="lose_game" from="en1" to="." method="_on_en_1_lose_game"]
 [connection signal="lose_game" from="en1" to="losegame" method="_on_en_1_lose_game"]
 [connection signal="lose_game" from="en2" to="." method="_on_en_2_lose_game"]
@@ -2013,6 +2029,7 @@ text = "ok fine ill try this time"
 [connection signal="text_submitted" from="gamestart/teamname" to="scoreboard/blueteam" method="_on_teamname_text_submitted"]
 [connection signal="pressed" from="gamestart/gotohelp" to="helpscreen" method="_on_gotohelp_pressed"]
 [connection signal="pressed" from="helpscreen/leavehelp" to="helpscreen" method="_on_leavehelp_pressed"]
+[connection signal="pressed" from="penshelp/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="penshelp/Button" to="penshelp" method="_on_button_pressed"]
 [connection signal="pressed" from="losegame/Button" to="gamestart" method="_on_button_pressed"]
 [connection signal="pressed" from="losegame/Button" to="losegame" method="_on_button_pressed"]
