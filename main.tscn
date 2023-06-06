@@ -1713,21 +1713,31 @@ position = Vector2(163, 172)
 [node name="soccerball" parent="." instance=ExtResource("3_6b2ps")]
 position = Vector2(165, 135)
 
-[node name="blueteam" type="Label" parent="."]
-offset_left = 208.0
-offset_top = 161.0
-offset_right = 304.0
-offset_bottom = 187.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="blueteam" type="Label" parent="CanvasLayer"]
+offset_left = 1032.0
+offset_top = 576.0
+offset_right = 1128.0
+offset_bottom = 602.0
 text = "blue team: 0"
 script = ExtResource("8_y34g4")
 
-[node name="Label2" type="Label" parent="."]
-offset_left = 208.0
-offset_top = 186.0
-offset_right = 304.0
-offset_bottom = 212.0
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 1036.0
+offset_top = 605.0
+offset_right = 1132.0
+offset_bottom = 631.0
 text = "red team: 1"
 
-[connection signal="scored" from="." to="blueteam" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="tm1" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="tm2" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="tm3" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="tm5" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="tm4" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="soccerball" method="_on_node_2d_scored"]
+[connection signal="scored" from="." to="CanvasLayer/blueteam" method="_on_node_2d_scored"]
 [connection signal="passing" from="Player" to="." method="_on_player_passing"]
+[connection signal="passing" from="Player" to="soccerball" method="_on_player_passing"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[connection signal="shoot" from="Player" to="soccerball" method="_on_player_shoot"]

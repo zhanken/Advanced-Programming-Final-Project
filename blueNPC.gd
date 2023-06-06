@@ -6,9 +6,8 @@ var move_speed = 1
 var min_distance = 10
 var animation_player: AnimationPlayer
 var speed = .06
+var scored = false
 
-func _ready():
-	animation_player = $AnimationPlayer
 
 func _physics_process(delta):
 	if true:
@@ -28,6 +27,12 @@ func _physics_process(delta):
 			elif dir.y < 0:
 				$AnimatedSprite2D.play("run_up")
 				$AnimatedSprite2D.flip_h = false
-		else:
+		elif scored == false:
 			$AnimatedSprite2D.play("idle")
 
+
+
+func _on_node_2d_scored():
+	print('howdy there!')
+	scored = true
+	$AnimatedSprite2D.play("celebrate")

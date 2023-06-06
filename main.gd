@@ -22,7 +22,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var distance = player.position.distance_to(soccerBall.position)
 	currentVelocity *= damping
-	soccerBall.move_and_collide(currentVelocity * delta)
+	if score == false:
+		soccerBall.move_and_collide(currentVelocity * delta)
 	if soccerBall.position.y < 67:
 		if score == false:
 			emit_signal("scored")
@@ -31,8 +32,6 @@ func _physics_process(delta: float) -> void:
 		attachedNow = true
 
 func attachBall() -> void:
-	soccerBall.set_deferred("collision_layer", 0)
-	soccerBall.set_deferred("collision_mask", 0)
 	emit_signal("attached")
 
 func find_closest_teammate():

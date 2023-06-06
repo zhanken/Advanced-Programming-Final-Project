@@ -1,9 +1,8 @@
 extends CharacterBody2D
 
-signal shoot
-signal passing
 signal location
-
+signal passing
+signal shoot
 var speed = .6
 var lastdir: Vector2 = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
